@@ -1,8 +1,29 @@
+import { apiUrl } from "@/app/utils/util";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 
 const BarChart = ({ barChartData }) => {
+  const [barChartInfo, setBarChartInfo] = useState(null);
+  const getBarChartData = async () => {
+    try {
+      const res = await axios.get(`${apiUrl}/records/chart`);
+      console.log("ST", res.data);
+      setBarChartInfo(res.data);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to fetch transactions");
+    }
+  };
+  useEffect(() => {
+    getBarChartData();
+  }, []);
   const data1 = {
-    labels: ["Jan"],
+    labels: [
+      barChartInfo.map((i) => {
+        i.bar.name;
+      }),
+    ],
     datasets: [
       {
         label: "Income",

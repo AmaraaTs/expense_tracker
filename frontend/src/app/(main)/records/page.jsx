@@ -8,7 +8,7 @@ import { IoIosAdd } from "react-icons/io";
 const RecordPage = () => {
   return (
     <div className="flex max-w-[2000px] mx-auto mt-8 gap-6">
-      <div className="w-[282px] flex flex-col px-4 py-6 bg-white rounded-xl gap-6">
+      <div className="w-[320px] flex flex-col px-4 py-6 bg-white rounded-xl gap-6">
         <h3>Records</h3>
         <button className="btn btn-info bg-[#0166FF] text-white rounded-5 py-1 text-base h-8">
           + Add
@@ -45,7 +45,15 @@ const RecordPage = () => {
         </div>
       </div>
       <div className="w-full">
-        <div></div>
+        <div className="flex justify-between">
+          <div>Last 30 Days</div>
+          <select className="select select-bordered w-full max-w-[180px] text-base font-semibold">
+            <option disabled selected>
+              Newest first
+            </option>
+            <option>Latest first</option>
+          </select>
+        </div>
         <div className="w-full ">
           <p className="mb-3">Today</p>
           <RecordList />
