@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 
-const BarChart = ({ barChartData }) => {
+const BarChart = ({}) => {
   const [barChartInfo, setBarChartInfo] = useState(null);
   const getBarChartData = async () => {
     try {
@@ -18,22 +18,21 @@ const BarChart = ({ barChartData }) => {
   useEffect(() => {
     getBarChartData();
   }, []);
+  const lbl = barChartInfo?.bar.map((b) => b.month);
+  const inc = barChartInfo?.bar.map((b) => b.total_inc);
+  const exp = barChartInfo?.bar.map((b) => b.total_exp);
   const data1 = {
-    labels: [
-      barChartInfo.map((i) => {
-        i.bar.name;
-      }),
-    ],
+    labels: lbl,
     datasets: [
       {
         label: "Income",
         backgroundColor: "#22C55E",
-        data: [20_000],
+        data: inc,
       },
       {
         label: "Expense",
         backgroundColor: "#F87171",
-        data: [15_000],
+        data: exp,
       },
     ],
   };

@@ -19,6 +19,15 @@ const getInfo = async (req, res) => {
     res.status(400).json({ message: "Failed", error });
   }
 };
+const getCash = async (req, res) => {
+  try {
+    const [income, expense] =
+      await sql`SELECT transaction_type, SUM(amount) FROM records GROUP BY transaction_type`;
+    res.status(200).json({ income, expense });
+  } catch (error) {
+    res.status(400).json({ message: "Failed", error });
+  }
+};
 
 const getChartData = async (req, res) => {
   try {
@@ -73,4 +82,5 @@ module.exports = {
   deleteRecord,
   getInfo,
   getChartData,
+  getCash,
 };

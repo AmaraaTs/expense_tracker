@@ -6,6 +6,7 @@ const {
   deleteRecord,
   getInfo,
   getChartData,
+  getCash,
 } = require("../controllers/record-controller");
 
 const router = Router();
@@ -13,6 +14,7 @@ const router = Router();
 // router.route("/info").get(getInfo).post(createRecord);
 // router.route("/").get(getAllRecord).post(createRecord);
 
+router.route("/cash").get(getCash);
 router.route("/info").get(getInfo);
 router.route("/chart").get(getChartData);
 router.route("/").get(getAllRecord);
