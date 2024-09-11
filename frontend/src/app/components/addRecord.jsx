@@ -62,20 +62,20 @@ const AddRecord = () => {
             </div>
           </div>
           <div className="px-6 py-5 w-1/2">
-            <div>
+            {/* <div>
               <p className="text-base">Payee</p>
               <input
                 type="text"
                 placeholder="Write here"
                 className="border-[1px] border-[#D1D5DB] px-4 py-3 rounded-xl bg-[#F9FAFB] w-full"
               />
-            </div>
-            <div className="mt-5">
-              <p className="text-base">Note</p>
+            </div> */}
+            <div className="">
+              <p className="text-base">Description</p>
               <input
                 type="text"
                 placeholder="Write here"
-                className="border-[1px] border-[#D1D5DB] px-4 py-3 rounded-xl bg-[#F9FAFB] w-full h-[280px]"
+                className="border-[1px] border-[#D1D5DB] px-4 py-3 rounded-xl bg-[#F9FAFB] w-full h-[365px]"
               />
             </div>
           </div>
