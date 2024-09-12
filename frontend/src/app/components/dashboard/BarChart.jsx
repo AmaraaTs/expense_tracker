@@ -1,26 +1,31 @@
+import { DashboardContext } from "@/app/context/dashboard-context";
 import { apiUrl } from "@/app/utils/util";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 
 const BarChart = ({}) => {
-  const [barChartInfo, setBarChartInfo] = useState(null);
-  const getBarChartData = async () => {
-    try {
-      const res = await axios.get(`${apiUrl}/records/chart`);
-      console.log("ST", res.data);
-      setBarChartInfo(res.data);
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to fetch transactions");
-    }
-  };
-  useEffect(() => {
-    getBarChartData();
-  }, []);
-  const lbl = barChartInfo?.bar.map((b) => b.month);
-  const inc = barChartInfo?.bar.map((b) => b.total_inc);
-  const exp = barChartInfo?.bar.map((b) => b.total_exp);
+  const { bar } = useContext(DashboardContext);
+  // const [barChartInfo, setBarChartInfo] = useState(null);
+  // const getBarChartData = async () => {
+  //   try {
+  //     const res = await axios.get(`${apiUrl}/records/chart`);
+  //     console.log("ST", res.data);
+  //     setBarChartInfo(res.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error("Failed to fetch transactions");
+  //   }
+  // };
+  // useEffect(() => {
+  //   getBarChartData();
+  // }, []);
+  // const lbl = barChartInfo?.bar.map((b) => b.month);
+  // const inc = barChartInfo?.bar.map((b) => b.total_inc);
+  // const exp = barChartInfo?.bar.map((b) => b.total_exp);
+  const lbl = bar?.map((b) => b.month);
+  const inc = bar?.map((b) => b.total_inc);
+  const exp = bar?.map((b) => b.total_exp);
   const data1 = {
     labels: lbl,
     datasets: [

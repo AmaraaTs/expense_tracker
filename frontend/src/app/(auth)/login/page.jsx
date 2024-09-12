@@ -23,7 +23,7 @@ const Login = () => {
       });
 
       if (response.status === 200) {
-        toast.success("User successfully signed in", { autoClose: 1000 });
+        toast.success("Хэрэглэгч амжилттай нэвтэрлээ", { autoClose: 1000 });
         const { token } = response.data;
         localStorage.setItem("token", token);
 

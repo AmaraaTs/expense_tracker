@@ -69,18 +69,6 @@ const RecordPage = () => {
           </p>
         </div>
         <div className="flex flex-col gap-2">
-          {/* <div className="flex gap-2 items-center">
-            <IoMdEye size={20} />
-            <p className="text-base text-[#1F2937]">Food & Drinks</p>
-          </div>
-          <div className="flex gap-2 items-center">
-            <IoMdEye size={20} />
-            <p className="text-base text-[#1F2937]">Food & Drinks</p>
-          </div>
-          <div className="flex gap-2 items-center">
-            <IoMdEye size={20} />
-            <p className="text-base text-[#1F2937]">Food & Drinks</p>
-          </div> */}
           <CategoryList />
         </div>
         <div className="flex items-center gap-2">

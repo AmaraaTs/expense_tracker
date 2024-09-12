@@ -2,6 +2,7 @@ const sql = require("../config/db");
 
 const getAllCategory = async (req, res) => {
   const data = await sql`SELECT * FROM categories`;
+  // const data = await sql`SELECT * FROM categories WHERE uid=${req.user.id}`;
   console.log("Data", data);
   res.status(200).json({ message: "Success", category: data });
 };

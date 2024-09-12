@@ -1,25 +1,29 @@
+import { DashboardContext } from "@/app/context/dashboard-context";
 import { apiUrl } from "@/app/utils/util";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 
 const DoughnutChart = ({}) => {
-  const [doughnutChartInfo, setDoughnutChartInfo] = useState(null);
-  const getDoughnutChartData = async () => {
-    try {
-      const res = await axios.get(`${apiUrl}/records/chart`);
-      console.log("ST", res.data);
-      setDoughnutChartInfo(res.data);
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to fetch transactions");
-    }
-  };
-  useEffect(() => {
-    getDoughnutChartData();
-  }, []);
-  const lbl = doughnutChartInfo?.donut.map((b) => b.cat_name);
-  const val = doughnutChartInfo?.donut.map((b) => b.sum);
+  const { donut } = useContext(DashboardContext);
+  // const [doughnutChartInfo, setDoughnutChartInfo] = useState(null);
+  // const getDoughnutChartData = async () => {
+  //   try {
+  //     const res = await axios.get(`${apiUrl}/records/chart`);
+  //     console.log("ST", res.data);
+  //     setDoughnutChartInfo(res.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error("Failed to fetch transactions");
+  //   }
+  // };
+  // useEffect(() => {
+  //   getDoughnutChartData();
+  // }, []);
+  // const lbl = doughnutChartInfo?.donut.map((b) => b.cat_name);
+  // const val = doughnutChartInfo?.donut.map((b) => b.sum);
+  const lbl = donut?.map((b) => b.cat_name);
+  const val = donut?.map((b) => b.sum);
   const data2 = {
     datasets: [
       {

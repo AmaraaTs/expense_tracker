@@ -1,7 +1,59 @@
-import React from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import { GoX } from "react-icons/go";
+import { apiUrl } from "../utils/util";
+import { UserContext } from "../context/user-context";
+import CategoryList from "./categoryList";
+import { toast } from "react-toastify";
 
 const AddRecord = () => {
+  const [categories, setCategories] = useState(null);
+  const fetchCategories = async () => {
+    try {
+      const res = await axios.get(`${apiUrl}/categories`);
+      console.log("ST", res.data);
+      setCategories(res.data);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to fetch categories");
+    }
+  };
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const { user } = useContext(UserContext);
+  const [addRecord, setAddRecord] = useState({
+    name: "",
+    amount: "",
+    description: "",
+  });
+
+  const fetchAddRecord = async () => {
+    try {
+      toast.success("Record амжилттай нэмлээ", { autoClose: 1000 });
+      const res = await axios.post(`${apiUrl}/records`, {
+        uid: "3009e18c-9870-4c87-bcf9-67aa7af0cb07",
+        cid: "5be147c4-134c-409f-a894-51a3f438f7ce",
+        name: "name",
+        amount: addRecord.amount,
+        transaction_type: "INC",
+        description: addRecord.description,
+      });
+      console.log("DD", res.data.records);
+      setAddRecord(res.data.records);
+      console.log("success");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to fetch transactions");
+    }
+  };
+
+  // useEffect(() => {
+  //   fetchAddRecord();
+  // }, [user]);
+
+  console.log("addrecord", addRecord);
   return (
     <dialog id="my_modal_3" className="modal">
       <div className="card bg-base-100 w-[1000px] max-h-[512px] shadow-xl">
@@ -29,15 +81,23 @@ const AddRecord = () => {
                 className="border-[1px] border-[#D1D5DB] px-4 py-3 rounded-xl bg-[#F9FAFB] w-full"
                 type="number"
                 placeholder="T 000.00"
+                onChange={(e) => {
+                  setAddRecord({ ...addRecord, amount: e.target.value });
+                }}
               />
             </div>
             <div className="mt-5">
               <p className="text-base">Category</p>
-              <input
-                className="border-[1px] border-[#D1D5DB] px-4 py-3 rounded-xl bg-[#F9FAFB] w-full"
+              <select
+                className="select border-[1px] border-[#D1D5DB] px-4 py-3 rounded-xl
+                bg-[#F9FAFB] w-full"
                 type="list"
                 placeholder="Choose"
-              />
+              >
+                {categories?.category.map((cat) => (
+                  <option>{cat.name}</option>
+                ))}
+              </select>
             </div>
             <div className="mt-5 flex w-full gap-3 justify-between">
               <div className="w-1/2">
@@ -56,7 +116,10 @@ const AddRecord = () => {
               </div>
             </div>
             <div className="card-actions mt-5">
-              <button className="btn btn-primary rounded-[20px] w-full py-2 bg-[#0166FF]">
+              <button
+                className="btn btn-primary rounded-[20px] w-full py-2 bg-[#0166FF]"
+                onClick={fetchAddRecord}
+              >
                 Add Record
               </button>
             </div>
@@ -76,6 +139,9 @@ const AddRecord = () => {
                 type="text"
                 placeholder="Write here"
                 className="border-[1px] border-[#D1D5DB] px-4 py-3 rounded-xl bg-[#F9FAFB] w-full h-[365px]"
+                onChange={(e) => {
+                  setAddRecord({ ...addRecord, description: e.target.value });
+                }}
               />
             </div>
           </div>

@@ -6,6 +6,7 @@ import { useRouter, redirect } from "next/navigation";
 import { Header } from "../components";
 import axios from "axios";
 import { apiUrl } from "../utils/util";
+import { DashboardProvider } from "../context/dashboard-context";
 
 const Layout = ({ children }) => {
   const { user, fetchUserData } = useContext(UserContext);
@@ -38,11 +39,11 @@ const Layout = ({ children }) => {
   // }
 
   return (
-    <div>
+    <DashboardProvider>
       <Header user={user} logOut={logOut} />
       {/* <header>User: {user.user[0]?.name}</header> */}
       {children}
-    </div>
+    </DashboardProvider>
   );
 };
 

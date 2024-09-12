@@ -8,7 +8,12 @@ const RecordList = () => {
   const [transactions, setTransactions] = useState([]);
   const fetchTransactions = async () => {
     try {
-      const res = await axios.get(`${apiUrl}/records`);
+      const token = localStorage.getItem("token");
+      const res = await axios.get(`${apiUrl}/records`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log("DD", res.data.records);
       setTransactions(res.data.records);
     } catch (error) {

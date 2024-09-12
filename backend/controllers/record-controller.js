@@ -49,14 +49,18 @@ const getChartData = async (req, res) => {
 };
 
 const createRecord = async (req, res) => {
-  const { uid, cid, name, amount, transaction_type, description } = req.body;
-  console.log("uid", uid);
-  const data = await sql`
-    INSERT INTO records (uid, cid, name, amount, transaction_type, description )
-    VALUES(${uid}, ${cid}, ${name},${amount},${transaction_type},${description});
-    `;
-  console.log("DATA", data);
-  res.status(201).json({ message: "New record created successfully" });
+  try {
+    const { uid, cid, name, amount, transaction_type, description } = req.body;
+    console.log("uid", uid);
+    const data = await sql`
+      INSERT INTO records (uid, cid, name, amount, transaction_type, description )
+      VALUES(${uid}, ${cid}, ${name},${amount},${transaction_type},${description});
+      `;
+    console.log("DATA", data);
+    res.status(201).json({ message: "New record created successfully" });
+  } catch (error) {
+    res.status(400).json({ message: "Failed", error });
+  }
 };
 
 const updateRecord = async (req, res) => {

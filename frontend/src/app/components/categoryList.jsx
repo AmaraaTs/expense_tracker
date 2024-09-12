@@ -2,12 +2,18 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { apiUrl } from "../utils/util";
 import { IoMdEye } from "react-icons/io";
+import { toast } from "react-toastify";
 
 const CategoryList = () => {
   const [categories, setCategories] = useState(null);
   const fetchCategories = async () => {
     try {
-      const res = await axios.get(`${apiUrl}/categories`);
+      const token = localStorage.getItem("token");
+      const res = await axios.get(`${apiUrl}/categories`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log("ST", res.data);
       setCategories(res.data);
     } catch (error) {
