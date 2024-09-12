@@ -4,6 +4,7 @@ import { apiUrl } from "../utils/util";
 import axios from "axios";
 
 const RecordList = () => {
+  // const { transactions } = useContext(DashboardContext);
   const { user } = useContext(UserContext);
   const [transactions, setTransactions] = useState([]);
   const fetchTransactions = async () => {
@@ -18,7 +19,7 @@ const RecordList = () => {
       setTransactions(res.data.records);
     } catch (error) {
       console.error(error);
-      toast.error("Failed to fetch transactions");
+      toast.error("Failed to fetch recordList");
     }
   };
   useEffect(() => {

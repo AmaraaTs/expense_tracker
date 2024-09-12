@@ -14,11 +14,10 @@ const CategoryList = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("ST", res.data);
       setCategories(res.data);
     } catch (error) {
       console.error(error);
-      toast.error("Failed to fetch categories");
+      toast.error("Failed to fetch categoryList");
     }
   };
   useEffect(() => {

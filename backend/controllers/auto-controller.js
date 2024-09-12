@@ -11,9 +11,9 @@ const signUp = async (req, res) => {
     VALUES(${email}, ${name}, ${hashedPassword},'url');
     `;
     console.log("DATA", data);
-    res.status(201).json({ message: "New user registered successfully" });
+    res.status(201).json({ message: "Шинэ хэрэглэгч амжилттай бүртгэгдлээ" });
   } catch (error) {
-    res.status(400).json({ message: "Client error detected" });
+    res.status(400).json({ message: "Шинэ хэрэглэгч бүртгэхэд алдаа гарлаа" });
   }
 };
 
@@ -36,11 +36,13 @@ const signIn = async (req, res) => {
         const token = jwt.sign({ id: user.id }, "JWT_TOKEN_PASS@123", {
           expiresIn: "1h",
         });
-        res.status(200).json({ message: "Амжилттай", token });
+        res
+          .status(200)
+          .json({ message: "Хэрэглэгч амжилттай нэвтэрлээ", token });
       }
     }
   } catch (error) {
-    res.status(400).json({ message: "Client error detected" });
+    res.status(400).json({ message: "Хэрэглэгч нэвтрэхэд алдаа гарлаа" });
   }
 };
 

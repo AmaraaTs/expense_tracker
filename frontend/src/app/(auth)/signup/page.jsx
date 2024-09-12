@@ -36,12 +36,12 @@ const SignUp = () => {
       });
 
       if (response.status === 201) {
-        toast.success("User successfully signed up", { autoClose: 1000 });
+        toast.success("Хэрэглэгч амжилттай бүртгэгдлээ", { autoClose: 1000 });
         router.push("/login");
       }
     } catch (error) {
       console.error("There was an error signing up:", error);
-      toast.error("Failed to sign up. Please try again.");
+      toast.error("Алдаа гарлаа. Дахин оролдоно уу.");
     }
   };
 

@@ -26,7 +26,6 @@ const Login = () => {
         toast.success("Хэрэглэгч амжилттай нэвтэрлээ", { autoClose: 1000 });
         const { token } = response.data;
         localStorage.setItem("token", token);
-
         router.push("/dashboard");
       }
     } catch (error) {

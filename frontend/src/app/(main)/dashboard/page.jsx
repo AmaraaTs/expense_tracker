@@ -23,10 +23,12 @@ import {
 import DoughnutChart from "@/app/components/dashboard/Doughnut";
 import { Doughnut } from "react-chartjs-2";
 import RecordList from "@/app/components/recordList";
+import { DashboardContext } from "@/app/context/dashboard-context";
 Chart.register(CategoryScale, LinearScale, BarElement, ArcElement, Legend);
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
+  // const { transactions, cardInfo } = useContext(DashboardContext);
   const [transactions, setTransactions] = useState([]);
   const [cardInfo, setCardInfo] = useState(null);
 
@@ -48,11 +50,9 @@ const Dashboard = () => {
       setCardInfo(res.data);
     } catch (error) {
       console.error(error);
-      toast.error("Failed to fetch transactions");
+      toast.error("Failed to fetch getInfoCard");
     }
   };
-
-  console.log("trans data", transactions);
 
   useEffect(() => {
     fetchTransactions();

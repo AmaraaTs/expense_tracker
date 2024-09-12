@@ -9,8 +9,13 @@ import { toast } from "react-toastify";
 const AddRecord = () => {
   const [categories, setCategories] = useState(null);
   const fetchCategories = async () => {
+    const token = localStorage.getItem("token");
     try {
-      const res = await axios.get(`${apiUrl}/categories`);
+      const res = await axios.get(`${apiUrl}/categories`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log("ST", res.data);
       setCategories(res.data);
     } catch (error) {
@@ -35,7 +40,7 @@ const AddRecord = () => {
       const res = await axios.post(`${apiUrl}/records`, {
         uid: "3009e18c-9870-4c87-bcf9-67aa7af0cb07",
         cid: "5be147c4-134c-409f-a894-51a3f438f7ce",
-        name: "name",
+        name: addRecord.name,
         amount: addRecord.amount,
         transaction_type: "INC",
         description: addRecord.description,
@@ -45,7 +50,7 @@ const AddRecord = () => {
       console.log("success");
     } catch (error) {
       console.error(error);
-      toast.error("Failed to fetch transactions");
+      toast.error("Failed to fetch addRecords");
     }
   };
 
@@ -93,6 +98,9 @@ const AddRecord = () => {
                 bg-[#F9FAFB] w-full"
                 type="list"
                 placeholder="Choose"
+                onChange={(e) => {
+                  setAddRecord({ ...addRecord, name: e.target.value });
+                }}
               >
                 {categories?.category.map((cat) => (
                   <option>{cat.name}</option>
@@ -115,24 +123,16 @@ const AddRecord = () => {
                 />
               </div>
             </div>
-            <div className="card-actions mt-5">
+            <form method="dialog" className="card-actions mt-5">
               <button
                 className="btn btn-primary rounded-[20px] w-full py-2 bg-[#0166FF]"
                 onClick={fetchAddRecord}
               >
                 Add Record
               </button>
-            </div>
+            </form>
           </div>
           <div className="px-6 py-5 w-1/2">
-            {/* <div>
-              <p className="text-base">Payee</p>
-              <input
-                type="text"
-                placeholder="Write here"
-                className="border-[1px] border-[#D1D5DB] px-4 py-3 rounded-xl bg-[#F9FAFB] w-full"
-              />
-            </div> */}
             <div className="">
               <p className="text-base">Description</p>
               <input

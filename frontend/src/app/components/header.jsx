@@ -1,4 +1,3 @@
-// import { PlusIcon } from "@/icons";
 import { FaPlus } from "react-icons/fa6";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,14 +22,13 @@ export const Header = ({ user, logOut }) => {
             className="btn bg-[#0166FF] text-white btn-sm text-base"
             onClick={() => document.getElementById("my_modal_3").showModal()}
           >
-            {/* <PlusIcon /> */}
             <FaPlus />
             Records
           </button>
           <AddRecord />
           <div className="avatar w-12 h-12">
             <div className="w-24 rounded-full">
-              <img src={user?.avatarImg} />
+              <img src={user?.profile_img} />
             </div>
           </div>
           <button className="btn btn-sm" onClick={logOut}>
