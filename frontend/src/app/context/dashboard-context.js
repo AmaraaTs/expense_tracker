@@ -58,8 +58,8 @@ export const DashboardProvider = ({ children }) => {
     }
   };
   useEffect(() => {
-    // fetchTransactions();
-    // getInfoCardData();
+    fetchTransactions();
+    getInfoCardData();
     getChartData();
   }, []);
   return (
@@ -67,8 +67,8 @@ export const DashboardProvider = ({ children }) => {
       value={{
         donut: chartData?.donut,
         bar: chartData?.bar,
-        transactions: transactions,
-        cardInfo: cardInfo,
+        transactions,
+        cardInfo,
       }}
     >
       {children}

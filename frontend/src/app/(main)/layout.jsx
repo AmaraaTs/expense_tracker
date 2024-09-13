@@ -22,10 +22,10 @@ const Layout = ({ children }) => {
     router.push("/login");
   };
 
-  if (!user) {
-    //   // redirect("/login");
-    router.push("/login");
-  }
+  // if (!user) {
+  //   //   // redirect("/login");
+  //   router.push("/login");
+  // }
 
   return (
     <DashboardProvider>

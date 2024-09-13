@@ -54,9 +54,11 @@ const AddRecord = () => {
     }
   };
 
-  // useEffect(() => {
-  //   fetchAddRecord();
-  // }, [user]);
+  let isInc = false;
+
+  useEffect(() => {
+    fetchAddRecord();
+  }, [user]);
 
   console.log("addrecord", addRecord);
   return (
@@ -73,10 +75,20 @@ const AddRecord = () => {
         <div className="flex ">
           <div className="px-6 py-5 w-1/2">
             <div className="rounded-[20px] bg-[#F3F4F6]">
-              <button className="rounded-[20px] px-[55px] py-2 text-base text-white bg-[#0166FF] w-1/2">
+              <button
+                onClick={isInc === false}
+                className={`${
+                  isInc === false ? "bg-[#0166FF] text-white" : "bg-[#F3F4F6]"
+                } rounded-[20px] px-[55px] py-2 text-base  w-1/2`}
+              >
                 Expense
               </button>
-              <button className="rounded-[20px] px-[55px] py-2 w-1/2">
+              <button
+                onClick={isInc === true}
+                className={`${
+                  isInc === true ? "bg-[#16A34A] text-white" : "bg-[#F3F4F6]"
+                } rounded-[20px] px-[55px] py-2 w-1/2`}
+              >
                 Income
               </button>
             </div>

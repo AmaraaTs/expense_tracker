@@ -27,37 +27,37 @@ import { DashboardContext } from "@/app/context/dashboard-context";
 Chart.register(CategoryScale, LinearScale, BarElement, ArcElement, Legend);
 
 const Dashboard = () => {
-  const { user } = useContext(UserContext);
-  // const { transactions, cardInfo } = useContext(DashboardContext);
-  const [transactions, setTransactions] = useState([]);
-  const [cardInfo, setCardInfo] = useState(null);
+  // const { user } = useContext(UserContext);
+  const { transactions, cardInfo } = useContext(DashboardContext);
+  // const [transactions, setTransactions] = useState([]);
+  // const [cardInfo, setCardInfo] = useState(null);
 
-  const fetchTransactions = async () => {
-    try {
-      const res = await axios.get(`${apiUrl}/records`);
-      console.log("DD", res.data.records);
-      setTransactions(res.data.records);
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to fetch transactions");
-    }
-  };
+  // const fetchTransactions = async () => {
+  //   try {
+  //     const res = await axios.get(`${apiUrl}/records`);
+  //     console.log("DD", res.data.records);
+  //     setTransactions(res.data.records);
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error("Failed to fetch transactions");
+  //   }
+  // };
 
-  const getInfoCardData = async () => {
-    try {
-      const res = await axios.get(`${apiUrl}/records/info`);
-      console.log("ST", res.data);
-      setCardInfo(res.data);
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to fetch getInfoCard");
-    }
-  };
+  // const getInfoCardData = async () => {
+  //   try {
+  //     const res = await axios.get(`${apiUrl}/records/info`);
+  //     console.log("ST", res.data);
+  //     setCardInfo(res.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error("Failed to fetch getInfoCard");
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchTransactions();
-    getInfoCardData();
-  }, [user]);
+  // useEffect(() => {
+  //   fetchTransactions();
+  //   getInfoCardData();
+  // }, [user]);
 
   return (
     <div>

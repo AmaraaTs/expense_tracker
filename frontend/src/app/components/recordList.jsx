@@ -2,29 +2,30 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/user-context";
 import { apiUrl } from "../utils/util";
 import axios from "axios";
+import { DashboardContext } from "../context/dashboard-context";
 
 const RecordList = () => {
-  // const { transactions } = useContext(DashboardContext);
-  const { user } = useContext(UserContext);
-  const [transactions, setTransactions] = useState([]);
-  const fetchTransactions = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const res = await axios.get(`${apiUrl}/records`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log("DD", res.data.records);
-      setTransactions(res.data.records);
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to fetch recordList");
-    }
-  };
-  useEffect(() => {
-    fetchTransactions();
-  }, [user]);
+  const { transactions } = useContext(DashboardContext);
+  // const { user } = useContext(UserContext);
+  // const [transactions, setTransactions] = useState([]);
+  // const fetchTransactions = async () => {
+  //   try {
+  //     const token = localStorage.getItem("token");
+  //     const res = await axios.get(`${apiUrl}/records`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     console.log("DD", res.data.records);
+  //     setTransactions(res.data.records);
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error("Failed to fetch recordList");
+  //   }
+  // };
+  // useEffect(() => {
+  //   fetchTransactions();
+  // }, [user]);
   return (
     <div>
       {transactions?.map((tr) => (
