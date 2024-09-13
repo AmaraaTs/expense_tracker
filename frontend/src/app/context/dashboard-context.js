@@ -62,6 +62,8 @@ export const DashboardProvider = ({ children }) => {
     getInfoCardData();
     getChartData();
   }, []);
+  // }, [refetch]);
+
   return (
     <DashboardContext.Provider
       value={{

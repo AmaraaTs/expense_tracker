@@ -36,7 +36,6 @@ const AddRecord = () => {
 
   const fetchAddRecord = async () => {
     try {
-      toast.success("Record амжилттай нэмлээ", { autoClose: 1000 });
       const res = await axios.post(`${apiUrl}/records`, {
         uid: "3009e18c-9870-4c87-bcf9-67aa7af0cb07",
         cid: "5be147c4-134c-409f-a894-51a3f438f7ce",
@@ -46,7 +45,9 @@ const AddRecord = () => {
         description: addRecord.description,
       });
       console.log("DD", res.data.records);
-      setAddRecord(res.data.records);
+      // setAddRecord(res.data.records);
+      toast.success("Record амжилттай нэмлээ", { autoClose: 1000 });
+      // refetch = true
       console.log("success");
     } catch (error) {
       console.error(error);
@@ -56,9 +57,9 @@ const AddRecord = () => {
 
   let isInc = false;
 
-  useEffect(() => {
-    fetchAddRecord();
-  }, [user]);
+  // useEffect(() => {
+  //   fetchAddRecord();
+  // }, [user]);
 
   console.log("addrecord", addRecord);
   return (
