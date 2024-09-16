@@ -1,13 +1,21 @@
 "use client";
 import AddRecord from "@/app/components/addRecord";
+import { CategoryModal } from "@/app/components/category-modal";
 import CategoryList from "@/app/components/categoryList";
 import RecordList from "@/app/components/recordList";
+import { ArrowLeft } from "@/icons/ArrowLeft";
+import { ArrowRight } from "@/icons/ArrowRight";
 import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { IoMdEye } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
 
 const RecordPage = () => {
+  const [categoryOpen, setCategoryOpen] = useState(false);
+
+  const handleClose = () => {
+    setCategoryOpen(false);
+  };
   return (
     <div className="flex max-w-[2000px] mx-auto mt-8 gap-6">
       <div className="w-[320px] flex flex-col px-4 py-6 bg-white rounded-xl gap-6">
@@ -73,12 +81,26 @@ const RecordPage = () => {
         </div>
         <div className="flex items-center gap-2">
           <IoIosAdd size={20} />
-          <p className="text-base text-[#1F2937]">Add Category</p>
+          <button
+            className="text-base text-[#1F2937]"
+            onClick={() => setCategoryOpen(true)}
+          >
+            Add Category
+          </button>
+          <CategoryModal categoryOpen={categoryOpen} close={handleClose} />
         </div>
       </div>
       <div className="w-full">
         <div className="flex justify-between">
-          <div>Last 30 Days</div>
+          <div className="flex items-center gap-3">
+            <button className="btn btn-square bg-[#E5E7EB]">
+              <ArrowRight />
+            </button>
+            <p>Last 30 Days</p>
+            <button className="btn btn-square bg-[#E5E7EB]">
+              <ArrowLeft />
+            </button>
+          </div>
           <select className="select select-bordered w-full max-w-[180px] text-base font-semibold">
             <option disabled selected>
               Newest first
@@ -87,7 +109,7 @@ const RecordPage = () => {
           </select>
         </div>
         <div className="w-full ">
-          <p className="mb-3">Today</p>
+          <p className="mb-3 mt-3">Today</p>
           <RecordList />
         </div>
       </div>
