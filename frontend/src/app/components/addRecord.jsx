@@ -27,35 +27,38 @@ const AddRecord = () => {
     fetchCategories();
   }, []);
 
-  const { user } = useContext(UserContext);
+  // const { user } = useContext(UserContext);
+  const [activeTab, setActiveTab] = useState("INC");
   const [addRecord, setAddRecord] = useState({
     name: "",
-    amount: "",
+    amount: 0,
+    cid: "",
+    uid: "3009e18c-9870-4c87-bcf9-67aa7af0cb07",
     description: "",
   });
-
-  const fetchAddRecord = async () => {
-    try {
-      const res = await axios.post(`${apiUrl}/records`, {
-        uid: "3009e18c-9870-4c87-bcf9-67aa7af0cb07",
-        cid: "5be147c4-134c-409f-a894-51a3f438f7ce",
-        name: addRecord.name,
-        amount: addRecord.amount,
-        transaction_type: "INC",
-        description: addRecord.description,
-      });
-      console.log("DD", res.data.records);
-      // setAddRecord(res.data.records);
-      toast.success("Record амжилттай нэмлээ", { autoClose: 1000 });
-      // refetch = true
-      console.log("success");
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to fetch addRecords");
-    }
+  const handleChangeForm = (e) => {
+    setAddRecord({ ...addRecord, [e.target.name]: e.target.value });
   };
 
-  let isInc = false;
+  const addRecordData = async () => {
+    const newData = {
+      ...setAddRecord,
+      transaction_type: activeTab,
+    };
+    const token = localStorage.getItem("token");
+    try {
+      const res = await axios.post(`${apiUrl}/records`, newData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.status === 201) {
+        toast.success("Record amjilttai nemegdlee");
+      }
+    } catch (error) {
+      toast.error("Record nemeh uyd aldaa garlaa");
+    }
+  };
 
   // useEffect(() => {
   //   fetchAddRecord();
@@ -77,31 +80,41 @@ const AddRecord = () => {
           <div className="px-6 py-5 w-1/2">
             <div className="rounded-[20px] bg-[#F3F4F6]">
               <button
-                onClick={isInc === false}
+                onClick={() => setActiveTab("EXP")}
                 className={`${
-                  isInc === false ? "bg-[#0166FF] text-white" : "bg-[#F3F4F6]"
+                  activeTab === "EXP"
+                    ? "bg-blue-500 text-white"
+                    : "bg-transparent text-black"
                 } rounded-[20px] px-[55px] py-2 text-base  w-1/2`}
               >
                 Expense
               </button>
               <button
-                onClick={isInc === true}
+                onClick={() => setActiveTab("INC")}
                 className={`${
-                  isInc === true ? "bg-[#16A34A] text-white" : "bg-[#F3F4F6]"
+                  activeTab === "INC"
+                    ? "bg-green-500 text-white"
+                    : "bg-transparent text-black"
                 } rounded-[20px] px-[55px] py-2 w-1/2`}
               >
                 Income
               </button>
             </div>
             <div className="mt-5">
+              {/* <input
+                type="text"
+                name="name"
+                placeholder="name"
+                className="input input-bordered"
+                onChange={handleChangeForm}
+              /> */}
               <p className="text-base">Amount</p>
               <input
                 className="border-[1px] border-[#D1D5DB] px-4 py-3 rounded-xl bg-[#F9FAFB] w-full"
                 type="number"
+                name="amount"
                 placeholder="T 000.00"
-                onChange={(e) => {
-                  setAddRecord({ ...addRecord, amount: e.target.value });
-                }}
+                onChange={handleChangeForm}
               />
             </div>
             <div className="mt-5">
@@ -110,13 +123,12 @@ const AddRecord = () => {
                 className="select border-[1px] border-[#D1D5DB] px-4 py-3 rounded-xl
                 bg-[#F9FAFB] w-full"
                 type="list"
+                name="cid"
                 placeholder="Choose"
-                onChange={(e) => {
-                  setAddRecord({ ...addRecord, name: e.target.value });
-                }}
+                onChange={handleChangeForm}
               >
                 {categories?.category.map((cat) => (
-                  <option>{cat.name}</option>
+                  <option value={cat.id}>{cat.name}</option>
                 ))}
               </select>
             </div>
@@ -138,8 +150,10 @@ const AddRecord = () => {
             </div>
             <form method="dialog" className="card-actions mt-5">
               <button
-                className="btn btn-primary rounded-[20px] w-full py-2 bg-[#0166FF]"
-                onClick={fetchAddRecord}
+                className={`btn btn-primary rounded-[20px] w-full py-2 bg-[#0166FF] ${
+                  activeTab === "EXP" ? "bg-blue-500" : "bg-green-500"
+                }`}
+                onClick={addRecordData}
               >
                 Add Record
               </button>
@@ -150,11 +164,10 @@ const AddRecord = () => {
               <p className="text-base">Description</p>
               <input
                 type="text"
+                name="description"
                 placeholder="Write here"
                 className="border-[1px] border-[#D1D5DB] px-4 py-3 rounded-xl bg-[#F9FAFB] w-full h-[365px]"
-                onChange={(e) => {
-                  setAddRecord({ ...addRecord, description: e.target.value });
-                }}
+                onChange={handleChangeForm}
               />
             </div>
           </div>
