@@ -1,8 +1,9 @@
 const sql = require("../config/db");
 
 const getAllRecord = async (req, res) => {
+  const userId = req.user.id;
   try {
-    const records = await sql`SELECT * FROM records`;
+    const records = await sql`SELECT * FROM records WHERE uid=${userId}`;
     console.log("Data", records);
     res.status(200).json({ records });
   } catch (error) {
@@ -11,15 +12,17 @@ const getAllRecord = async (req, res) => {
 };
 
 const getInfo = async (req, res) => {
+  const userId = req.user.id;
   try {
     const [income, expense] =
-      await sql`SELECT transaction_type, SUM(amount) FROM records GROUP BY transaction_type`;
+      await sql`SELECT transaction_type, SUM(amount) FROM records WHERE uid=${userId} GROUP BY transaction_type`;
     res.status(200).json({ income, expense });
   } catch (error) {
     res.status(400).json({ message: "Failed to get info", error });
   }
 };
 const getCash = async (req, res) => {
+  const userId = req.user.id;
   try {
     const [income, expense] =
       await sql`SELECT transaction_type, SUM(amount) FROM records GROUP BY transaction_type`;
@@ -30,9 +33,10 @@ const getCash = async (req, res) => {
 };
 
 const getChartData = async (req, res) => {
+  const userId = req.user.id;
   try {
     const donutChartData =
-      await sql`SELECT SUM(r.amount), c.name cat_name FROM records r INNER JOIN categories c ON r.cid=c.id WHERE r.transaction_type='EXP' GROUP BY cat_name`;
+      await sql`SELECT SUM(r.amount), c.name cat_name FROM records r INNER JOIN categories c ON r.cid=c.id WHERE r.transaction_type='EXP' AND uid=${userId} GROUP BY cat_name`;
     const barChartData = await sql`SELECT
       TO_CHAR(DATE_TRUNC('month', r.created_at), 'Mon') AS month,
       SUM(CASE WHEN r.transaction_type = 'INC' THEN r.amount ELSE 0 END) AS total_inc,
@@ -40,13 +44,11 @@ const getChartData = async (req, res) => {
       FROM records r
       GROUP BY DATE_TRUNC('month', r.created_at)
       ORDER BY DATE_TRUNC('month', r.created_at);`;
-    res
-      .status(200)
-      .json({
-        message: "Getting chart data is success",
-        donut: donutChartData,
-        bar: barChartData,
-      });
+    res.status(200).json({
+      message: "Getting chart data is success",
+      donut: donutChartData,
+      bar: barChartData,
+    });
   } catch (error) {
     res.status(400).json({ message: "Failed to get chart datas", error });
   }
