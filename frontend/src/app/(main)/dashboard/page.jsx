@@ -69,7 +69,7 @@ const Dashboard = () => {
               <img src="/img/Geld-white.png" alt="photo" className="w-20" />
               <div>
                 <p className="text-base text-white opacity-50">Cash</p>
-                <p className="text-2xl font-semibold text-white">1000</p>
+                <p className="text-2xl font-semibold text-white">1,000₮</p>
               </div>
             </div>
             <HiSignal size={40} color="white" />
@@ -81,7 +81,7 @@ const Dashboard = () => {
             </div>
             <div className="py-5 px-6">
               <h3 className="text-4xl font-semibold">
-                {cardInfo?.income.sum}₮
+                {Number(cardInfo?.income.sum).toLocaleString("en")}₮
               </h3>
               <p className="text-[18px] text-[#64748B] mt-1">
                 Your Income Amount
@@ -99,7 +99,7 @@ const Dashboard = () => {
             </div>
             <div className="py-5 px-6">
               <h3 className="text-4xl font-semibold">
-                -{cardInfo?.expense.sum}₮
+                -{Number(cardInfo?.expense.sum).toLocaleString("en")}₮
               </h3>
               <p className="text-[18px] text-[#64748B] mt-1">
                 Your expence Amount

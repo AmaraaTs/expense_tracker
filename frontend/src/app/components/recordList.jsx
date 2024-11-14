@@ -43,7 +43,7 @@ const RecordList = () => {
             }`}
           >
             {tr.transaction_type === "EXP" && "-"}
-            {tr?.amount}₮
+            {Number(tr?.amount).toLocaleString("en")}₮
           </div>
         </div>
       ))}

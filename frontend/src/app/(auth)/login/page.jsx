@@ -49,7 +49,7 @@ const Login = () => {
           <div className="flex flex-col gap-4 w-full">
             <input
               type="email"
-              placeholder="Email"
+              placeholder="Email: (Demo: user@gmail.com)"
               className="input input-bordered w-full border-[1px] border-[#D1D5DB] bg-[#F3F4F6] px-4 py-3 text-base text-[#A3A3A3]"
               onChange={(e) =>
                 setUserData({ ...userData, email: e.target.value })
@@ -57,7 +57,7 @@ const Login = () => {
             />
             <input
               type="password"
-              placeholder="Password"
+              placeholder="Password (Demo: 123)"
               className="input input-bordered w-full border-[1px] border-[#D1D5DB] bg-[#F3F4F6] px-4 py-3 text-base text-[#A3A3A3]"
               onChange={(e) =>
                 setUserData({ ...userData, password: e.target.value })
