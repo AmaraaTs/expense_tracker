@@ -13,8 +13,8 @@ const { auth } = require("../middlewares/auth");
 const router = Router();
 
 router.route("/cash").get(getCash);
-router.route("/info").get(getInfo);
-router.route("/chart").get(getChartData);
+router.route("/info").get(auth, getInfo);
+router.route("/chart").get(auth, getChartData);
 router.route("/").get(auth, getAllRecord).post(createRecord);
 router.route("/:id").put(updateRecord).delete(deleteRecord);
 
